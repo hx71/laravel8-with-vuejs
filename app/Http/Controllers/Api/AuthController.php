@@ -19,7 +19,10 @@ class AuthController extends Controller
             $success['token'] = $user->createToken('MyApp')->accessToken;
             $data = [
                 'token' => $success['token'],
-                'name' => $user->name,
+                'data' => [
+                    'email' => $user->email,
+                    'name' => $user->name
+                ],
                 // 'role' => $user->role->role_name,
             ];
             return response()->json($this->getRespon($data, 200, "login successfull"));
