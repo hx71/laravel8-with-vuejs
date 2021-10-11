@@ -1,17 +1,31 @@
 <template>
-    <div class="row justify-content-center" style="margin-top:50px">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Base Project Laravel - VueJs</div>
-
-                <div class="card-body">
-                    Dashboard
-                </div>
+    <section class="section">
+        <div class="section-header">
+            <h1>Default Layout</h1>
+            <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+            <div class="breadcrumb-item"><a href="#">Layout</a></div>
+            <div class="breadcrumb-item">Default Layout</div>
             </div>
         </div>
-    </div>
+
+        <div class="section-body">
+            <h2 class="section-title">This is Example Page</h2>
+            <p class="section-lead">This page is just an example for you to create your own page.</p>
+            <div class="card">
+            <div class="card-header">
+                <h4>Dashboard</h4>
+            </div>
+            <div class="card-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,  </p>
+            </div>
+            <div class="card-footer bg-whitesmoke">
+                This is card footer
+            </div>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script>
-const default_layout = "default";
 </script>
