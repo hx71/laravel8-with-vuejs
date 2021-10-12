@@ -72,7 +72,7 @@
 
         <footer class="main-footer">
             <div class="footer-left">
-            Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+            Copyright &copy; 2018 <div class="bullet"></div> Design Template By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
             </div>
             <div class="footer-right">
             2.3.0
@@ -89,26 +89,26 @@ export default {
     data () {
         return {}
     },
+    created() {
+        var scripts = [
+            "https://code.jquery.com/jquery-3.3.1.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js",
+            "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js",
+            // "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js",
+            // "../../../../stisla/assets/js/stisla.js",
+            // "../../../../stisla/assets/js/scripts.js",
+            // "../../../../stisla/assets/js/custom.js"
+        ];
+        scripts.forEach(script => {
+            let tag = document.createElement("script");
+            tag.setAttribute("src", script);
+            document.head.appendChild(tag);
+        });
+    },
     beforeMount () {
         this.showUserdata()
     },
-    // created() {
-    //     var scripts = [
-    //         "https://code.jquery.com/jquery-3.3.1.min.js",
-    //         "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js",
-    //         "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js",
-    //         "https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js",
-    //         "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js",
-    //         "../../stisla/assets/js/stisla.js",
-    //         "../../stisla/assets/js/scripts.js",
-    //         "../../stisla/assets/js/custom.js"
-    //     ];
-    //     scripts.forEach(script => {
-    //         let tag = document.createElement("script");
-    //         tag.setAttribute("src", script);
-    //         document.head.appendChild(tag);
-    //     });
-    // },
     methods: {
         showUserdata(){
             let value = localStorage.getItem('userdata')
@@ -122,18 +122,20 @@ export default {
         },
         logout() {
             this.$store.dispatch('auth/logout').then(() => {
-                this.$router.push({name: 'login'})
+                this.$router.push({name: 'auth-login'})
             })
         },
     }
 }
 </script>
 
+
+
 <style scoped>
-    /* @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'); */
-    /* @import url('https://use.fontawesome.com/releases/v5.7.2/css/all.css'); */
+    @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+    @import url('https://use.fontawesome.com/releases/v5.7.2/css/all.css');
 
     /* @import '../../stisla/node_modules/bootstrap-social/bootstrap-social.css'; */
-    /* @import '../../stisla/assets/css/style.css'; */
-    /* @import '../../stisla/assets/css/components.css'; */
+    /* @import '../../../public/stisla/assets/css/style.css'; */
+    /* @import '../../../public/stisla/assets/css/components.css'; */
 </style>

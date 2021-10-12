@@ -1,41 +1,45 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card card-default">
-            <div class="card-header">Register</div>
-            <!-- <div v-if="errors" class="alert bg-danger text-white m-4">
-                <div v-for="(v, k) in errors" :key="k">
-                <p v-for="error in v" :key="error" class="text-sm">
-                    {{ error }}
-                </p>
-                </div>
-            </div> -->
+    <div>
+        <div class="card card-primary">
+            <div class="card-header"><h4>Register</h4></div>
+
             <div class="card-body">
-                <form @submit.prevent="postRegister">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" v-model="user.name" class="form-control">
+            <form method="POST" @submit.prevent="postRegister">
+                <div class="form-group">
+                    <label for="first_name">Username</label>
+                    <input id="first_name" type="text" class="form-control" v-model="user.name"  autofocus>
+                </div>
+
+                <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" type="email" class="form-control" name="email" v-model="user.email">
+                <div class="invalid-feedback">
+                </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="d-block">Password</label>
+                    <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" v-model="user.password">
+                    <div id="pwindicator" class="pwindicator">
+                    <div class="bar"></div>
+                    <div class="label"></div>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" v-model="user.email" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" v-model="user.password" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="password_confirmation">Confirm Password</label>
-                        <input type="password" v-model="user.password_confirmation" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        Register
-                    </button>
-                </form>
-            </div>
+                </div>
+                <div class="form-group">
+                    <label for="password2" class="d-block">Password Confirmation</label>
+                    <input id="password2" type="password" class="form-control"  v-model="user.password_confirmation">
+                </div>
+                
+                <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                    Register
+                </button>
+                </div>
+            </form>
             </div>
         </div>
+        <div class="mt-5 text-muted text-center">
+        I already have an account? <router-link :to="{name: 'auth-login'} ">Login</router-link>
         </div>
     </div>
 </template>
