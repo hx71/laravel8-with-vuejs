@@ -1,18 +1,21 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from '../store.js'
+import store from './store.js'
 
-import LayoutDefault from '../layouts/default';
-import LayoutAuth from '../layouts/auth';
+import LayoutDefault from './layouts/default';
+import LayoutAuth from './layouts/auth';
 
-import Dashboard from '../pages/Dashboard';
-import Profile from '../pages/Profile';
+import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
 
-import Users from '../pages/User';
-import createUsers from '../pages/Create';
+// import User from './pages/User';
+import User from './pages/User';
+import indexUser from './pages/admin/users/Index';
+import createUser from './pages/admin/users/Create';
+import editUser from './pages/admin/users/Edit';
 
-import Login from '../auth/Login';
-import Register from '../auth/Register';
+import Login from './auth/Login';
+import Register from './auth/Register';
 
 Vue.use(VueRouter);
 
@@ -35,12 +38,17 @@ const routes = [
       {
         path: '/users',
         name: 'users',
-        component: Users,
+        component: indexUser,
       },
       {
         path: '/users/create',
         name: 'create-users',
-        component: createUsers,
+        component: createUser,
+      },
+      {
+        path: '/users/:id/edit',
+        name: 'edit-users',
+        component: editUser,
       }
     ]
   }, 

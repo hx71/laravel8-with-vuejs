@@ -28,9 +28,13 @@
 </template>
 
 
-
 <script>
+// import LayoutDefault from '../layouts/default';
 export default {
+    // name:"Dasboard",
+    // components: {
+    //     LayoutDefault
+    // },
     data () {
         return {}
     },
