@@ -40,7 +40,7 @@
              <div class="main-sidebar">
             <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-                <a href="#">Admin</a>
+                <router-link class="nav-link" :to="{name: 'dashboard'} ">ADMIN</router-link>
             </div>
             <div class="sidebar-brand sidebar-brand-sm">
                 <a href="#"></a>

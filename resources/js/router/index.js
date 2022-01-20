@@ -8,7 +8,6 @@ import LayoutAuth from '../layouts/auth';
 import Dashboard from '../pages/Dashboard';
 import Profile from '../pages/Profile';
 
-import Users from '../pages/User';
 import createUsers from '../pages/Create';
 
 import Login from '../auth/Login';
@@ -16,79 +15,80 @@ import Register from '../auth/Register';
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    redirect: '/dashboard',
-    component: LayoutDefault,
-    meta: {
-      title: 'Home',
-      requiresAuth: true,
+const routes = [{
+        path: '/',
+        name: 'home',
+        redirect: '/dashboard',
+        component: LayoutDefault,
+        meta: {
+            title: 'Home',
+            requiresAuth: true,
+        },
+        children: [{
+                path: '/dashboard',
+                name: 'dashboard',
+                component: Dashboard,
+            },
+            {
+                path: '/users',
+                name: 'users',
+                component: () =>
+                    import ('../admin/users/Index.vue'),
+                children: [{
+                    path: '/create',
+                    name: 'create-users',
+                    component: () =>
+                        import ('../admin/users/Create.vue'),
+                }]
+
+
+            }
+        ]
     },
-    children: [
-      {
-        path: '/dashboard',
-        name: 'dashboard',
-        component: Dashboard,
-      },
-      {
-        path: '/users',
-        name: 'users',
-        component: Users,
-      },
-      {
-        path: '/users/create',
-        name: 'create-users',
-        component: createUsers,
-      }
-    ]
-  }, 
-  {
-    path: '/auth',
-    name: 'auth',
-    component: LayoutAuth,
-    children: [
-      {
-        path: 'login',
-        name: 'auth-login',
-        component: Login
-      },
-      {
-        path: 'register',
-        name: 'auth-register',
-        component: Register
-      },
-    ]
-  }
-  //   {
-  //     path: '*',
-  //     name: '404-page',
-  //     component: Error404
-  //   },
+    {
+        path: '/auth',
+        name: 'auth',
+        component: LayoutAuth,
+        children: [{
+                path: 'login',
+                name: 'auth-login',
+                component: Login
+            },
+            {
+                path: 'register',
+                name: 'auth-register',
+                component: Register
+            },
+        ]
+    }
+    //   {
+    //     path: '*',
+    //     name: '404-page',
+    //     component: Error404
+    //   },
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  hash: false,
-  routes
+    mode: 'history',
+    hash: false,
+    routes
 })
 
 //Navigation Guards
 router.beforeEach((to, from, next) => {
     store.commit('CLEAR_ERRORS')
     if (to.matched.some(record => record.meta.requiresAuth)) {
-      let auth = store.getters.isAuth
-      if (!auth) {
-        // cek exp_date in here
-        next({name: 'auth-login'})
-      } else {
-        next()
-      }
+        let auth = store.getters.isAuth
+        if (!auth) {
+            // cek exp_date in here
+            next({ name: 'auth-login' })
+        } else {
+            next()
+        }
     } else {
-      next()
+        next()
     }
-  })
+})
 
 export default router
 // develop
