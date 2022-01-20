@@ -1,60 +1,71 @@
 <template>
  
-   <div id="app">
+    <div id="app">
         <div class="main-wrapper">
-        <div class="navbar-bg"></div>
-        <nav class="navbar navbar-expand-lg main-navbar">
-            <form class="form-inline mr-auto">
-            <ul class="navbar-nav mr-3">
-                <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-                <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
-            </ul>
-            </form>
-            <ul class="navbar-nav navbar-right">
-            <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg nav-link-user">
-                <img alt="image" :src="'../../../../stisla/assets/img/avatar/avatar-1.png'" class="rounded-circle mr-1">
-                <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-title">Logged in 5 min ago</div>
-                <a href="features-profile.html" class="dropdown-item has-icon">
-                    <i class="far fa-user"></i> Profile
-                </a>
-                <a href="features-activities.html" class="dropdown-item has-icon">
-                    <i class="fas fa-bolt"></i> Activities
-                </a>
-                <a href="features-settings.html" class="dropdown-item has-icon">
-                    <i class="fas fa-cog"></i> Settings
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item has-icon text-danger" @click="logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
-                </div>
-            </li>
-            </ul>
-        </nav>
-        <div class="main-sidebar">
+
+            <div>
+                <div class="navbar-bg"></div>
+                <nav class="navbar navbar-expand-lg main-navbar">
+                    <form class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                        <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+                    </ul>
+                    </form>
+                    <ul class="navbar-nav navbar-right">
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg nav-link-user">
+                        <img alt="image" :src="'../../../../stisla/assets/img/avatar/avatar-1.png'" class="rounded-circle mr-1">
+                        <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-title">Logged in 5 min ago</div>
+                        <a href="features-profile.html" class="dropdown-item has-icon">
+                            <i class="far fa-user"></i> Profile
+                        </a>
+                        <a href="features-activities.html" class="dropdown-item has-icon">
+                            <i class="fas fa-bolt"></i> Activities
+                        </a>
+                        <a href="features-settings.html" class="dropdown-item has-icon">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item has-icon text-danger" @click="logout">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                        </div>
+                    </li>
+                    </ul>
+                </nav>
+            </div>
+
+             <div class="main-sidebar">
             <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-                <a href="index.html">Stisla</a>
+                <router-link class="nav-link" :to="{name: 'dashboard'} ">ADMIN</router-link>
             </div>
             <div class="sidebar-brand sidebar-brand-sm">
-                <a href="index.html">St</a>
+                <a href="#"></a>
             </div>
             <ul class="sidebar-menu">
                 <li class="menu-header">Dashboard</li>
                 <li class="active">
-                    <router-link class="nav-link" :to="{name: 'dashboard'} "><i class="fas fa-fire"></i> <span>Dashboard</span></router-link>
-                    </li>
-
-                <li class="menu-header">Pages</li>
+                <router-link class="nav-link" :to="{name: 'dashboard'} "><i class="fas fa-fire"></i> <span>Dashboard</span></router-link>
+                </li>
+                <li class="menu-header">User Setting</li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Auth</span></a>
+                    <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>User Setting</span></a>
                     <ul class="dropdown-menu">
-                    <li><a href="auth-forgot-password.html">Forgot Password</a></li>
+                    <li>
+                        <router-link :to="{name: 'users'} ">Users</router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name: 'create-users'} ">Create Users</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/users/1/edit ">Edit Users</router-link>
+                    </li>
                     </ul>
                 </li> 
-                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
+                <li><a class="nav-link" href="#"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
                 </ul>
 
                 <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
@@ -65,19 +76,14 @@
             </aside>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <router-view></router-view>
-        </div>
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- <slot></slot> -->
+                <router-view></router-view>
+            </div>
 
-        <footer class="main-footer">
-            <div class="footer-left">
-            Copyright &copy; 2018 <div class="bullet"></div> Design Template By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
-            </div>
-            <div class="footer-right">
-            2.3.0
-            </div>
-        </footer>
+            <Footer />
+        
         </div>
     </div>
     
@@ -85,7 +91,11 @@
 
 
 <script>
+import Header from "./header.vue"
+import Sidebar from "./sidebar.vue"
+import Footer from "./footer.vue"
 export default {
+    components: { Header, Sidebar, Footer },
     data () {
         return {}
     },
@@ -128,7 +138,6 @@ export default {
     }
 }
 </script>
-
 
 
 <style scoped>

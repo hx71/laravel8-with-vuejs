@@ -48,7 +48,10 @@ class UserController extends Controller
             $model = $request->all();
             $model['password'] = Hash::make($model['password']);
             $data = User::create($model);
-            return new UserColletion($data);
+            return response()->json([
+                'message' => 'success',
+                'data' => new UserColletion($data)
+            ]);
         } catch (\Exception $e) {
             $message = $e->getMessage() . ' in file :' . $e->getFile() . ' line: ' . $e->getLine();
             return response()->json($message);

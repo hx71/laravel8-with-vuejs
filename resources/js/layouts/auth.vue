@@ -10,6 +10,8 @@
             </div>
 
             <router-view></router-view>
+            <!-- <slot></slot> -->
+            <!-- <h1>welcome auth</h1> -->
 
             <div class="simple-footer">
               Copyright &copy; Stisla 2018

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 // import module section
 import auth from './stores/auth.js'
+import user_setting from './stores/user_setting.js'
 
 
 Vue.use(Vuex)
@@ -11,6 +12,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   modules: {
     auth,
+    user_setting,
   },
   state: {
     token: localStorage.getItem('token'),

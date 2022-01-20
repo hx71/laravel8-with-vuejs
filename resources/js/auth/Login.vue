@@ -80,7 +80,7 @@
         this.login(data).then((res) => {
           if (res.code == 200) {
             this.CLEAR_ERRORS();
-            this.$router.push({ name: "home" });
+            this.$router.push({ name: "dashboard" });
             //  this.$router.push({ name: 'dashboard', query: { redirect: '/' } });
             //  router.push({ path: '/dashboard' });
           }
