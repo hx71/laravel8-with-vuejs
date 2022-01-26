@@ -14,7 +14,6 @@ const mutations = {
 const actions = {
     getUser({ commit }, payload) {
         console.log('token ==>', lib.getConfig());
-        console.log("get data users")
         let page = payload && payload.page
         let search = payload && payload.search
         let type = payload && payload.type
@@ -29,6 +28,7 @@ const actions = {
                 })
         })
     },
+
     createUser({ dispatch }, payload) {
         return new Promise((resolve) => {
             $axios.post(`/users`, payload, lib.getConfig())
@@ -37,6 +37,25 @@ const actions = {
                 })
         })
     },
+
+    getUserByID({ commit }, params) {
+        return new Promise((resolve) => {
+            $axios.get(`/users/${params}`, lib.getConfig())
+                .then((response) => {
+                    resolve(response.data.data)
+                })
+        })
+    },
+
+    updateUser({ dispatch }, params) {
+        return new Promise((resolve) => {
+            $axios.put(`/users/${params.id}`, params, lib.getConfig())
+                .then((response) => {
+                    resolve(response.data)
+                })
+        })
+    },
+
     removeUser({ dispatch }, payload) {
         return new Promise((resolve) => {
             $axios.delete(`/users/${payload}`, lib.getConfig())

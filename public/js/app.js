@@ -2688,6 +2688,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2708,16 +2715,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// import { mapActions, mapState } from "vuex";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      // dataUser:{},
-      current: 1
+      idUsers: this.$route.params.id,
+      users: {
+        id: this.$route.params.id
+      }
     };
   },
   created: function created() {
-    // this.getData();
+    this.getData();
     var scripts = [// "https://code.jquery.com/jquery-3.3.1.min.js",
     // "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js",
     // "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js",
@@ -2730,19 +2777,30 @@ __webpack_require__.r(__webpack_exports__);
       document.head.appendChild(tag);
     });
   },
-  methods: {// ...mapActions("user_setting", ["getUser"]),
-    //  getData() {
-    //   let params = {
-    //     page: this.current,
-    //     // search: this.search,
-    //   };
-    //   this.getUser(params).then((res) => {
-    //     // this.isLoading = false;
-    //     this.dataUser = res
-    //   });
-    //   // this.getCodePremiumRateById(params.id);
-    // },
-  }
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)("user_setting", ["getUserByID", "updateUser"])), {}, {
+    getData: function getData() {
+      var _this = this;
+
+      this.getUserByID(this.idUsers).then(function (res) {
+        _this.users = res;
+        console.log('tess->', _this.users);
+      });
+    },
+    postUpdate: function postUpdate() {
+      var _this2 = this;
+
+      console.log(this.users);
+      this.updateUser(this.users).then(function (res) {
+        console.log('==> ', res.message);
+
+        if (res.message == 'success') {
+          _this2.$router.push({
+            name: "users"
+          });
+        }
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -2765,6 +2823,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -3306,7 +3365,6 @@ var actions = {
   getUser: function getUser(_ref, payload) {
     var commit = _ref.commit;
     console.log('token ==>', _lib_lib__WEBPACK_IMPORTED_MODULE_1__.default.getConfig());
-    console.log("get data users");
     var page = payload && payload.page;
     var search = payload && payload.search;
     var type = payload && payload.type;
@@ -3328,8 +3386,24 @@ var actions = {
       });
     });
   },
-  removeUser: function removeUser(_ref3, payload) {
-    var dispatch = _ref3.dispatch;
+  getUserByID: function getUserByID(_ref3, params) {
+    var commit = _ref3.commit;
+    return new Promise(function (resolve) {
+      _api_js__WEBPACK_IMPORTED_MODULE_0__.default.get("/users/".concat(params), _lib_lib__WEBPACK_IMPORTED_MODULE_1__.default.getConfig()).then(function (response) {
+        resolve(response.data.data);
+      });
+    });
+  },
+  updateUser: function updateUser(_ref4, params) {
+    var dispatch = _ref4.dispatch;
+    return new Promise(function (resolve) {
+      _api_js__WEBPACK_IMPORTED_MODULE_0__.default.put("/users/".concat(params.id), params, _lib_lib__WEBPACK_IMPORTED_MODULE_1__.default.getConfig()).then(function (response) {
+        resolve(response.data);
+      });
+    });
+  },
+  removeUser: function removeUser(_ref5, payload) {
+    var dispatch = _ref5.dispatch;
     return new Promise(function (resolve) {
       _api_js__WEBPACK_IMPORTED_MODULE_0__.default.delete("/users/".concat(payload), _lib_lib__WEBPACK_IMPORTED_MODULE_1__.default.getConfig()).then(function () {
         dispatch('getUser').then(function () {
@@ -42275,31 +42349,163 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", { staticClass: "section" }, [
+    _c("div", { staticClass: "section-header" }, [
+      _c("h1", [_vm._v("Edit")]),
+      _vm._v("\n        " + _vm._s(_vm.users) + "\n        "),
+      _vm._m(0)
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "section-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12 col-md-12 col-lg-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c(
+              "form",
+              {
+                attrs: { method: "POST" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.postUpdate.apply(null, arguments)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Username")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.users.name,
+                          expression: "users.name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.users.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.users, "name", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Email")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.users.email,
+                            expression: "users.email"
+                          }
+                        ],
+                        staticClass: "form-control phone-number",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.users.email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.users, "email", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Password")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.users.password,
+                            expression: "users.password"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "password" },
+                        domProps: { value: _vm.users.password },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.users, "password", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(1)
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "section" }, [
-      _c("div", { staticClass: "section-header" }, [
-        _c("h1", [_vm._v("Edit")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "section-header-breadcrumb" }, [
-          _c("div", { staticClass: "breadcrumb-item active" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Edit")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "breadcrumb-item" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Components")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "breadcrumb-item" }, [_vm._v("Table")])
-        ])
+    return _c("div", { staticClass: "section-header-breadcrumb" }, [
+      _c("div", { staticClass: "breadcrumb-item active" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Users")])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "section-body" }, [_c("h1", [_vm._v("Edit")])])
+      _c("div", { staticClass: "breadcrumb-item" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Form")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "breadcrumb-item" }, [_vm._v("Edit")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer text-right" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-danger", attrs: { type: "submit" } },
+        [
+          _vm._v(
+            "\n                                Cancel\n                            "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [
+          _vm._v(
+            "\n                                Update\n                            "
+          )
+        ]
+      )
     ])
   }
 ]
@@ -42348,7 +42554,7 @@ var render = function() {
                         _c("i", { staticClass: "fa fa-plus" })
                       ]),
                       _vm._v(
-                        "\n                      Add New\n                    "
+                        "\n                                Add New\n                            "
                       )
                     ]
                   )
@@ -42373,28 +42579,19 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(val.email))]),
                         _vm._v(" "),
-                        _c(
-                          "td",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass:
-                                  "btn btn-icon btn-round btn-warning btn-sm",
-                                attrs: {
-                                  to: {
-                                    name: "edit-user",
-                                    params: { id: val.id }
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-pencil-alt" })]
-                            ),
-                            _vm._v(" "),
-                            _vm._m(2, true)
-                          ],
-                          1
-                        )
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "btn btn-icon btn-round btn-warning btn-sm",
+                              attrs: { href: "users/" + val.id + "/edit" }
+                            },
+                            [_c("i", { staticClass: "fa fa-pencil-alt" })]
+                          ),
+                          _vm._v(" "),
+                          _vm._m(2, true)
+                        ])
                       ])
                     })
                   ],

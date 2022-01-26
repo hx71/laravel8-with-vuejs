@@ -39,6 +39,11 @@ const routes = [{
                     name: 'create-users',
                     component: () =>
                         import ('../admin/users/Create.vue'),
+                }, {
+                    path: '/:id/edit',
+                    name: 'edit-users',
+                    component: () =>
+                        import ('../admin/users/Create.vue'),
                 }]
 
 
