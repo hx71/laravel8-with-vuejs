@@ -25,9 +25,9 @@ class AuthController extends Controller
                 ],
                 // 'role' => $user->role->role_name,
             ];
-            return response()->json($this->getRespon($data, 200, "login successfull"));
+            return response()->json(["code" => 200, "message" => "login successfull", "data" => $data]);
         } else {
-            return response()->json($this->getRespon(null, 204, "user not found"));
+            return response()->json(["code" => 204, "message" => "user not found"]);
         }
         // } catch (\Exception $e) {
         //     return response()->json($this->getRespon(null, 500, "errors"));
@@ -41,12 +41,12 @@ class AuthController extends Controller
             $model['password'] = Hash::make($model['password']);
             $data = User::create($model);
             if ($data) {
-                return response()->json($this->getRespon($data, 200, "register successfull"));
+                return response()->json(["code" => 200, "message" => "register successfull", "data" => $data]);
             } else {
-                return response()->json($this->getRespon(null, 204, "register failed"));
+                return response()->json(["code" => 204, "message" => "register failed"]);
             }
         } catch (\Exception $e) {
-            return response()->json($this->getRespon(null, 500, "errors"));
+            return response()->json(["code" => 500, "message" => "errors"]);
         }
     }
 
@@ -55,14 +55,9 @@ class AuthController extends Controller
         try {
             $user = Auth::user()->token();
             $user->revoke();
-            return response()->json($this->getRespon(null, 200, "successfull logged out"));
+            return response()->json("successfull logged out");
         } catch (\Exception $e) {
-            return response()->json($this->getRespon(null, 500, "error"));
+            return response()->json("error");
         }
-    }
-
-    public function getRespon($data = null, $code, $message)
-    {
-        return ["code" => $code, "message" => $message, "data" => $data];
     }
 }

@@ -28,7 +28,14 @@ Route::group(['prefix' => '', 'namespace' => 'App\Http\Controllers\Api',  'middl
     //     Route::get('/user/detail', [Api::class, 'detail']);
     Route::get('/auth/logout', [Auths::class, 'logout']);
 
-    Route::group(['prefix' => '/'], function () {
-        Route::resource('/users', 'UserController');
+    // Route::group(['prefix' => '/users'], function () {
+    // Route::resource('/users', 'UserController');
+    // });
+    Route::group(['prefix' => '/users'], function () {
+        Route::get('/', 'UserController@index')->name('api.users.index');
+        Route::post('/', 'UserController@store')->name('api.users.store');
+        Route::get('/{id}', 'UserController@show')->name('api.users.show');
+        Route::put('/{id}', 'UserController@update')->name('api.users.update');
+        Route::delete('/{id}', 'UserController@destroy')->name('api.users.delete');
     });
 });

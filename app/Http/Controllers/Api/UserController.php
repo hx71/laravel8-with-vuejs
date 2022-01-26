@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Resources\UserColletion;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         try {
             $data =  User::paginate(5);
-            return new UserColletion($data);
+            return UserResource::collection($data);
         } catch (\Exception $e) {
             $message = $e->getMessage() . ' in file :' . $e->getFile() . ' line: ' . $e->getLine();
             return response()->json($message);
@@ -50,7 +50,7 @@ class UserController extends Controller
             $data = User::create($model);
             return response()->json([
                 'message' => 'success',
-                'data' => new UserColletion($data)
+                'data' => new UserResource($data)
             ]);
         } catch (\Exception $e) {
             $message = $e->getMessage() . ' in file :' . $e->getFile() . ' line: ' . $e->getLine();
@@ -68,7 +68,7 @@ class UserController extends Controller
     {
         try {
             $data = User::find($id);
-            return new UserColletion($data);
+            return new UserResource($data);
         } catch (\Exception $e) {
             $message = $e->getMessage() . ' in file :' . $e->getFile() . ' line: ' . $e->getLine();
             return response()->json($message);
@@ -99,8 +99,11 @@ class UserController extends Controller
             $model = $request->all();
             $model['password'] = Hash::make($model['password']);
             $data = User::find($id);
-            $datax = $data->update($model);
-            return new UserColletion($datax);
+            $data->update($model);
+            return response()->json([
+                'message' => 'success',
+                'data' => new UserResource($data)
+            ]);
         } catch (\Exception $e) {
             $message = $e->getMessage() . ' in file :' . $e->getFile() . ' line: ' . $e->getLine();
             return response()->json($message);
@@ -118,6 +121,10 @@ class UserController extends Controller
         try {
             $data = User::find($id);
             $data->delete();
+            return response()->json([
+                'message' => 'success',
+                'data' => new UserResource($data)
+            ]);
         } catch (\Exception $e) {
             $message = $e->getMessage() . ' in file :' . $e->getFile() . ' line: ' . $e->getLine();
             return response()->json($message);
