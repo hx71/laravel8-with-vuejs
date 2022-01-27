@@ -56,12 +56,11 @@ const actions = {
         })
     },
 
-    removeUser({ dispatch }, payload) {
+    removeUser({ dispatch }, params) {
         return new Promise((resolve) => {
-            $axios.delete(`/users/${payload}`, lib.getConfig())
-                .then(() => {
-                    dispatch('getUser').then(() => resolve())
-                        // dispatch('getGenerateCode').then(() => resolve())
+            $axios.delete(`/users/${params}`, lib.getConfig())
+                .then((response) => {
+                    resolve(response.data)
                 })
         })
     },

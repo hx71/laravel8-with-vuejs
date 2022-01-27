@@ -2,7 +2,6 @@
 <section class="section">
     <div class="section-header">
         <h1>Edit</h1>
-        {{ users }}
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="#">Users</a></div>
             <div class="breadcrumb-item"><a href="#">Form</a></div>
@@ -80,6 +79,8 @@ export default {
             // "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js",
             "../../../../../../stisla/assets/js/stisla.js",
             "../../../../../../stisla/node_modules/jquery-ui-dist/jquery-ui.min.js",
+            "../../../../../../stisla/node_modules/sweetalert/dist/sweetalert.min.js",
+            "../../../../../../stisla/node_modules/izitoast/dist/js/iziToast.min.js",
             "../../../../../../stisla/assets/js/scripts.js",
             "../../../../../../stisla/assets/js/custom.js",
             "../../../../../../stisla/assets/js/page/components-table.js"
@@ -101,12 +102,23 @@ export default {
         },
 
         postUpdate() {
-            console.log(this.users);
             this.updateUser(this.users).then((res) => {
-                console.log('==> ',res.message)
                 if (res.message == 'success') {
+                    iziToast.success({
+                        title: 'Successfull.',
+                        message: 'Update it data!',
+                        position: 'topRight',
+                        timeout: 1500
+                    });
                     this.$router.push({
                         name: "users"
+                    });
+                }else{
+                    iziToast.error({
+                        title: 'Failed,',
+                        message: 'Update it data!',
+                        position: 'topRight',
+                        timeout: 1500
                     });
                 }
             });
@@ -119,4 +131,5 @@ export default {
 <style scoped>
 @import '../../../../../public/stisla/assets/css/style.css';
 @import '../../../../../public/stisla/assets/css/components.css';
+@import '../../../../../public/stisla/node_modules/izitoast/dist/css/iziToast.min.css';
 </style>
