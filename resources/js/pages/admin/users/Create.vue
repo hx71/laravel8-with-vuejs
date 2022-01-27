@@ -82,6 +82,8 @@ export default {
             // "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js",
             "../../../../../../stisla/assets/js/stisla.js",
             "../../../../../../stisla/node_modules/jquery-ui-dist/jquery-ui.min.js",
+            "../../../../../../stisla/node_modules/sweetalert/dist/sweetalert.min.js",
+            "../../../../../../stisla/node_modules/izitoast/dist/js/iziToast.min.js",
             "../../../../../../stisla/assets/js/scripts.js",
             "../../../../../../stisla/assets/js/custom.js",
             "../../../../../../stisla/assets/js/page/components-table.js"
@@ -96,12 +98,23 @@ export default {
         ...mapActions("user_setting", ["createUser"]),
 
         postCreate() {
-            console.log(this.user);
             this.createUser(this.user).then((res) => {
-              console.log(res.message)
-                 if (res.message == 'success') {
+                if (res.message == "success") {
+                    iziToast.success({
+                        title: 'Successfull.',
+                        message: 'Save it data!',
+                        position: 'topRight',
+                        timeout: 1500
+                    });
                     this.$router.push({
                         name: "users"
+                    });
+                } else {
+                    iziToast.error({
+                        title: 'Failed,',
+                        message: 'Save it data!',
+                        position: 'topRight',
+                        timeout: 1500
                     });
                 }
             });
@@ -114,4 +127,5 @@ export default {
 <style scoped>
 @import '../../../../../public/stisla/assets/css/style.css';
 @import '../../../../../public/stisla/assets/css/components.css';
+@import '../../../../../public/stisla/node_modules/izitoast/dist/css/iziToast.min.css';
 </style>

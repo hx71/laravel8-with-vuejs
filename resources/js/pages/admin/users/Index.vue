@@ -41,25 +41,12 @@
                                     <td>{{ val.name }}</td>
                                     <td>{{ val.email }}</td>
                                     <td>
-                                        <!-- <button type="button" class="btn btn-icon btn-round btn-warning btn-sm">
-                              <i class="fa fa-pencil-alt"></i>
-                            </button> -->
-
-                                        <!-- <router-link :to="{name: 'edit-user', params: { id: val.id }}" class="btn btn-icon btn-round btn-warning btn-sm">
-                                            <i class="fa fa-pencil-alt"></i>
-                                        </router-link> -->
                                         <a v-bind:href="'users/'+val.id+'/edit'" class="btn btn-icon btn-round btn-warning btn-sm">
                                             <i class="fa fa-pencil-alt"></i>
                                         </a>
-
-                                        <button type="button" class="btn btn-icon btn-round btn-danger btn-sm">
+                                        <button type="button" class="btn btn-icon btn-round btn-danger btn-sm" @click="deleteUsers(val.id)">
                                             <i class="fa fa-trash-alt"></i>
                                         </button>
-                                        <!-- <div class="btn-group" role="group">
-                                  <router-link :to="{name: 'edit', params: { id: val.id }}" class="btn btn-primary">Edit
-                                  </router-link>
-                                  <button class="btn btn-danger" @click="deletePost(val.id)">Delete</button>
-                              </div> -->
                                     </td>
                                 </tr>
                             </table>
@@ -94,6 +81,8 @@ export default {
             // "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js",
             "../../../../../../stisla/assets/js/stisla.js",
             "../../../../../../stisla/node_modules/jquery-ui-dist/jquery-ui.min.js",
+            "../../../../../../stisla/node_modules/sweetalert/dist/sweetalert.min.js",
+            "../../../../../../stisla/node_modules/izitoast/dist/js/iziToast.min.js",
             "../../../../../../stisla/assets/js/scripts.js",
             "../../../../../../stisla/assets/js/custom.js",
             "../../../../../../stisla/assets/js/page/components-table.js"
@@ -105,7 +94,7 @@ export default {
         });
     },
     methods: {
-        ...mapActions("user_setting", ["getUser"]),
+        ...mapActions("user_setting", ["getUser", "removeUser"]),
 
         getData() {
             let params = {
@@ -119,6 +108,41 @@ export default {
             // this.getCodePremiumRateById(params.id);
         },
 
+        deleteUsers(id) {
+            console.log('delete', id)
+            swal({
+                    title: 'Are you sure?',
+                    text: 'Are you sure you want to delete it?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        this.removeUser(id).then((res) => {
+                            console.log('loggg -->', res)
+                            if (res.message == "success") {
+                                this.getData();
+                                iziToast.success({
+                                    title: 'Successfull.',
+                                    message: 'Save it data!',
+                                    position: 'topRight',
+                                    timeout: 1500
+                                });
+                            } else {
+                                iziToast.error({
+                                    title: 'Failed,',
+                                    message: 'Save it data!',
+                                    position: 'topRight',
+                                    timeout: 1500
+                                });
+                            }
+                        });
+
+                    }
+                });
+        },
+
     }
 }
 </script>
@@ -126,4 +150,5 @@ export default {
 <style scoped>
 @import '../../../../../public/stisla/assets/css/style.css';
 @import '../../../../../public/stisla/assets/css/components.css';
+@import '../../../../../public/stisla/node_modules/izitoast/dist/css/iziToast.min.css';
 </style>
