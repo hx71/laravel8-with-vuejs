@@ -52,16 +52,13 @@
                 </li>
                 <li class="menu-header">User Setting</li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>User Setting</span></a>
+                    <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>User Setting</span></a>
                     <ul class="dropdown-menu">
                     <li>
+                        <router-link :to="{name: 'roles'} ">Roles</router-link>
+                    </li>
+                    <li>
                         <router-link :to="{name: 'users'} ">Users</router-link>
-                    </li>
-                    <li>
-                        <router-link :to="{name: 'create-users'} ">Create Users</router-link>
-                    </li>
-                    <li>
-                        <router-link to="/users/1/edit ">Edit Users</router-link>
                     </li>
                     </ul>
                 </li> 

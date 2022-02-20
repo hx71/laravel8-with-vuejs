@@ -2214,9 +2214,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -41422,8 +41419,8 @@ var render = function() {
                   _c(
                     "li",
                     [
-                      _c("router-link", { attrs: { to: { name: "users" } } }, [
-                        _vm._v("Users")
+                      _c("router-link", { attrs: { to: { name: "roles" } } }, [
+                        _vm._v("Roles")
                       ])
                     ],
                     1
@@ -41432,20 +41429,8 @@ var render = function() {
                   _c(
                     "li",
                     [
-                      _c(
-                        "router-link",
-                        { attrs: { to: { name: "create-users" } } },
-                        [_vm._v("Create Users")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    [
-                      _c("router-link", { attrs: { to: "/users/1/edit " } }, [
-                        _vm._v("Edit Users")
+                      _c("router-link", { attrs: { to: { name: "users" } } }, [
+                        _vm._v("Users")
                       ])
                     ],
                     1
@@ -41573,7 +41558,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "a",
-      { staticClass: "nav-link has-dropdown", attrs: { href: "#" } },
+      { staticClass: "nav-link has-dropdown", attrs: { href: "" } },
       [
         _c("i", { staticClass: "far fa-user" }),
         _vm._v(" "),
