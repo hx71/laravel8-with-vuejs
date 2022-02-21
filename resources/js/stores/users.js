@@ -13,7 +13,6 @@ const mutations = {
 
 const actions = {
     getUser({ commit }, payload) {
-        console.log('token ==>', lib.getConfig());
         let page = payload && payload.page
         let search = payload && payload.search
         let type = payload && payload.type

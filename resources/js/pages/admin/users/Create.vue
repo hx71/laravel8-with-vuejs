@@ -39,13 +39,9 @@
                             </div>
                         </div>
                         <div class="card-footer text-right">
-                            <!-- <router-link class="nav-link" :to="{name: 'dashboard'} ">
-                         
-                       </router-link> -->
-
-                            <button type="submit" class="btn btn-danger">
+                            <router-link to="/users" class="btn btn-danger">
                                 Cancel
-                            </button>
+                            </router-link>
                             <button type="submit" class="btn btn-primary">
                                 Save
                             </button>
@@ -95,7 +91,7 @@ export default {
         });
     },
     methods: {
-        ...mapActions("user_setting", ["createUser"]),
+        ...mapActions("users", ["createUser"]),
 
         postCreate() {
             this.createUser(this.user).then((res) => {
