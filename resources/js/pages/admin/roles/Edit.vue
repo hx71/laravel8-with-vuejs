@@ -10,36 +10,25 @@
     </div>
 
     <div class="section-body">
-        <!-- <h2 class="section-title">Advanced Forms</h2> -->
-        <!-- <p class="section-lead">We provide advanced input fields, such as date picker, color picker, and so on.</p> -->
 
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
-                    <!-- <div class="card-header">
-                        <h4>Input Text</h4>
-                    </div> -->
                     <form method="POST" @submit.prevent="postUpdate">
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" class="form-control" v-model="users.name">
+                                <label>Role</label>
+                                <input type="text" class="form-control" v-model="roles.role">
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
+                                <label>Role Name</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control phone-number" v-model="users.email">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <div class="input-group">
-                                    <input type="password" class="form-control" v-model="users.password">
+                                    <input type="text" class="form-control phone-number" v-model="roles.role_name">
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer text-right">
-                            <router-link to="/users" class="btn btn-danger">
+                            <router-link to="/roles" class="btn btn-danger">
                                 Cancel
                             </router-link>
                             <button type="submit" class="btn btn-primary">
@@ -63,8 +52,8 @@ import {
 export default {
     data() {
         return {
-            idUsers: this.$route.params.id,
-            users: {
+            idRoles: this.$route.params.id,
+            roles: {
                 id: this.$route.params.id
             }
         }
@@ -92,17 +81,17 @@ export default {
         });
     },
     methods: {
-        ...mapActions("users", ["getUserByID", "updateUser"]),
+        ...mapActions("roles", ["getRolesByID", "updateRoles"]),
 
         getData() {
-            this.getUserByID(this.idUsers).then((res) => {
-                this.users = res
-                console.log('tess->', this.users)
+            this.getRolesByID(this.idRoles).then((res) => {
+                this.roles = res
+                console.log('tess->', this.roles)
             });
         },
 
         postUpdate() {
-            this.updateUser(this.users).then((res) => {
+            this.updateRoles(this.roles).then((res) => {
                 if (res.message == 'success') {
                     iziToast.success({
                         title: 'Successfull.',
@@ -111,7 +100,7 @@ export default {
                         timeout: 1500
                     });
                     this.$router.push({
-                        name: "users"
+                        name: "roles"
                     });
                 } else {
                     iziToast.error({

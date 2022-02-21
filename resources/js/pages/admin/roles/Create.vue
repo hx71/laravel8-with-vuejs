@@ -1,40 +1,29 @@
 <template>
 <section class="section">
     <div class="section-header">
-        <h1>Edit</h1>
+        <h1>Create</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="#">Users</a></div>
+            <div class="breadcrumb-item active"><a href="#">Roles</a></div>
             <div class="breadcrumb-item"><a href="#">Form</a></div>
-            <div class="breadcrumb-item">Edit</div>
+            <div class="breadcrumb-item">Create</div>
         </div>
     </div>
 
     <div class="section-body">
-        <!-- <h2 class="section-title">Advanced Forms</h2> -->
-        <!-- <p class="section-lead">We provide advanced input fields, such as date picker, color picker, and so on.</p> -->
 
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
-                    <!-- <div class="card-header">
-                        <h4>Input Text</h4>
-                    </div> -->
-                    <form method="POST" @submit.prevent="postUpdate">
+                    <form method="POST" @submit.prevent="postCreate">
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" class="form-control" v-model="users.name">
+                                <label>Role</label>
+                                <input type="text" class="form-control" v-model="roles.role">
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
+                                <label>Role Name</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control phone-number" v-model="users.email">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <div class="input-group">
-                                    <input type="password" class="form-control" v-model="users.password">
+                                    <input type="text" class="form-control phone-number" v-model="roles.role_name">
                                 </div>
                             </div>
                         </div>
@@ -43,7 +32,7 @@
                                 Cancel
                             </router-link>
                             <button type="submit" class="btn btn-primary">
-                                Update
+                                Save
                             </button>
                         </div>
                     </form>
@@ -58,19 +47,17 @@
 <script>
 import {
     mapActions,
-    mapState
 } from "vuex";
 export default {
     data() {
         return {
-            idUsers: this.$route.params.id,
-            users: {
-                id: this.$route.params.id
-            }
+            // dataUser:{},
+            current: 1,
+            roles: {}
         }
     },
     created() {
-        this.getData();
+        // this.getData();
         var scripts = [
             // "https://code.jquery.com/jquery-3.3.1.min.js",
             // "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js",
@@ -92,31 +79,24 @@ export default {
         });
     },
     methods: {
-        ...mapActions("users", ["getUserByID", "updateUser"]),
+        ...mapActions("roles", ["createRoles"]),
 
-        getData() {
-            this.getUserByID(this.idUsers).then((res) => {
-                this.users = res
-                console.log('tess->', this.users)
-            });
-        },
-
-        postUpdate() {
-            this.updateUser(this.users).then((res) => {
-                if (res.message == 'success') {
+        postCreate() {
+            this.createRoles(this.roles).then((res) => {
+                if (res.message == "success") {
                     iziToast.success({
                         title: 'Successfull.',
-                        message: 'Update it data!',
+                        message: 'Save it data!',
                         position: 'topRight',
                         timeout: 1500
                     });
                     this.$router.push({
-                        name: "users"
+                        name: "roles"
                     });
                 } else {
                     iziToast.error({
                         title: 'Failed,',
-                        message: 'Update it data!',
+                        message: 'Save it data!',
                         position: 'topRight',
                         timeout: 1500
                     });
