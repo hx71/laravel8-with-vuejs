@@ -13,7 +13,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // try {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             $success['token'] = $user->createToken('MyApp')->accessToken;
@@ -23,15 +22,11 @@ class AuthController extends Controller
                     'email' => $user->email,
                     'name' => $user->name
                 ],
-                // 'role' => $user->role->role_name,
             ];
             return response()->json(["code" => 200, "message" => "login successfull", "data" => $data]);
         } else {
             return response()->json(["code" => 204, "message" => "user not found"]);
         }
-        // } catch (\Exception $e) {
-        //     return response()->json($this->getRespon(null, 500, "errors"));
-        // }
     }
 
     public function register(Request $request)

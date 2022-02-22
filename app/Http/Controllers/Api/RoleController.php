@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleValidator;
 use App\Http\Resources\RoleResource;
 use App\Models\Role;
-use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
@@ -26,7 +26,7 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RoleValidator $request)
     {
         try {
             $model = $request->all();
@@ -61,7 +61,7 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(RoleValidator $request, $id)
     {
         try {
             $model = $request->all();
