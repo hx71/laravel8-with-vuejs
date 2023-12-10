@@ -64,7 +64,7 @@ export default {
     @import url('https://use.fontawesome.com/releases/v5.7.2/css/all.css');
 
  /* CSS Libraries */
-    @import '../../../public/stisla/node_modules/bootstrap-social/bootstrap-social.css';
+    @import '../../../public/stisla/assets/bootstrap-social/bootstrap-social.css';
     @import '../../../public/stisla/assets/css/style.css';
     @import '../../../public/stisla/assets/css/components.css';
 
